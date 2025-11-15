@@ -1,0 +1,7 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+	<ItemGroup>
+		<Reference Include="PKHeX.Core">
+			<HintPath>..\PKHeX.Core.AutoMod\deps\PKHeX.Core.dll</HintPath>
+		</Reference>
+	</ItemGroup>
+</Project>
