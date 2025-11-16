@@ -43,6 +43,15 @@ public static class ShowdownEdits
             return;
 
         var val = set.Nature <= Nature.Quirky ? set.Nature : Nature.Hardy;
+
+        // For PA9, use StatNature minting instead of changing Nature (which would break seed validation)
+        if (pk is PA9)
+        {
+            if (pk.Nature != val)
+                pk.StatNature = val;
+            return;
+        }
+
         if (pk.Species == (ushort)Species.Toxtricity)
         {
             if (pk.Form == ToxtricityUtil.GetAmpLowKeyResult(val))
@@ -83,6 +92,9 @@ public static class ShowdownEdits
     /// <param name="preference">The <see cref="AbilityPermission"/> indicating the preferred ability slot.</param>
     public static void SetAbility(PKM pk, IBattleTemplate set, AbilityPermission preference)
     {
+        if (pk is PA9)
+            return;
+
         if (pk.Ability != set.Ability)
             pk.RefreshAbility(pk is PK5 { HiddenAbility: true } ? 2 : pk.AbilityNumber >> 1);
         if (pk.Ability != set.Ability && pk.Context >= EntityContext.Gen6 && set.Ability != -1)
